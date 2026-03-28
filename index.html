@@ -2,85 +2,265 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vasos Personalizados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #f5efe8;
+      --bg-accent: #f2dbc8;
+      --ink: #271712;
+      --muted: #6f4d43;
+      --brand: #a64b2a;
+      --brand-dark: #7c341d;
+      --card: #fffaf5;
+      --line: #e8d7c8;
+      --ok: #1db954;
+      --ok-dark: #14883d;
+      --shadow: 0 16px 32px rgba(39, 23, 18, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Outfit", sans-serif;
       margin: 0;
-      background-color: #f7f7f7;
-      text-align: center;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, var(--bg-accent) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, #ffe7d2 0%, transparent 38%),
+        var(--bg);
+      min-height: 100vh;
     }
 
     header {
-      background-color: #8b5e3c;
-      color: white;
-      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(135deg, #9a4a2b 0%, #6f2d19 100%);
+      padding: 48px 20px 64px;
+      text-align: center;
+      isolation: isolate;
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.14);
+      z-index: -1;
+    }
+
+    header::before {
+      width: 240px;
+      height: 240px;
+      top: -110px;
+      right: -40px;
+    }
+
+    header::after {
+      width: 180px;
+      height: 180px;
+      bottom: -60px;
+      left: -40px;
+    }
+
+    .kicker {
+      margin: 0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.75rem;
+      opacity: 0.9;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .hero-copy {
+      margin: 0 auto;
+      max-width: 620px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(1rem, 2vw, 1.1rem);
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
+      width: min(1080px, 92%);
+      margin: -28px auto 40px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
     .producto {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: white;
-      border: 2px solid #8b5e3c;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      width: 90%;
-      max-width: 600px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      flex-wrap: wrap;
+      gap: 18px;
+      align-items: stretch;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      animation: reveal 0.65s ease both;
+    }
+
+    .producto:nth-child(2) {
+      animation-delay: 0.12s;
     }
 
     .producto-texto {
-      flex: 1;
-      padding-right: 20px;
+      flex: 1 1 58%;
       text-align: left;
     }
 
+    .producto-texto h2 {
+      margin: 8px 0 10px;
+      font-size: 1.35rem;
+      color: #3a221b;
+    }
+
+    .descripcion {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      background: #fbe2cf;
+      color: #844128;
+      text-transform: uppercase;
+    }
+
+    .precio {
+      margin: 0;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--brand-dark);
+    }
+
+    .cta-row {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
     .producto img {
-      flex-shrink: 0;
-      width: 150px;
-      border-radius: 10px;
-      margin-top: 10px;
+      flex: 1 1 40%;
+      min-width: 160px;
+      max-width: 220px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid var(--line);
     }
 
     .boton {
-      background-color: #25d366;
+      background-color: var(--ok);
       color: white;
-      padding: 10px 20px;
+      padding: 11px 16px;
       text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-weight: 700;
       display: inline-block;
-      margin-top: 10px;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      box-shadow: 0 8px 14px rgba(29, 185, 84, 0.25);
+    }
+
+    .boton:hover {
+      background-color: var(--ok-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 20px rgba(20, 136, 61, 0.3);
+    }
+
+    .boton:active {
+      transform: translateY(0);
+    }
+
+    .boton-secundario {
+      background: #f5e7dc;
+      color: #633023;
+      box-shadow: none;
     }
 
     footer {
-      margin-top: 30px;
+      width: min(1080px, 92%);
+      margin: 0 auto 28px;
       padding: 20px;
-      background-color: #ddd;
+      border-radius: 18px;
+      background-color: #fff7f1;
+      border: 1px solid var(--line);
+      text-align: center;
+      box-shadow: var(--shadow);
     }
 
-    /* Responsive para pantallas pequeñas */
-    @media (max-width: 500px) {
+    footer p {
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--ok-dark);
+      font-weight: 700;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      header {
+        padding: 36px 16px 52px;
+      }
+
       .producto {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
       }
+
       .producto-texto {
-        padding-right: 0;
+        width: 100%;
       }
+
       .producto img {
-        width: 80%;
-        margin-top: 15px;
+        max-width: none;
+      }
+
+      .cta-row {
+        width: 100%;
+      }
+
+      .cta-row .boton {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -88,32 +268,45 @@
 <body>
 
 <header>
+  <p class="kicker">Mugnifico Personalized</p>
   <h1>Vasos Personalizados</h1>
-  <p>Diseña tu estilo único ☕</p>
+  <p class="hero-copy">Diseña tu estilo unico con acabados premium. Elige tu referencia y pide en segundos por WhatsApp.</p>
 </header>
 
 <div class="container">
 
   <div class="producto">
     <div class="producto-texto">
+      <span class="pill">Mas vendido</span>
       <h2>Vaso Clásico</h2>
-      <p>Personalízalo con tu nombre o diseño favorito.</p>
-      <p><strong>$25.000 COP</strong></p>
-      <a class="boton" href="https://wa.me/573105489470?text=Hola,%20me%20interesa%20el%20Vaso%20de%2025k" target="_blank">
-        Pedir por WhatsApp
-      </a>
+      <p class="descripcion">Personalizalo con tu nombre o diseño favorito. Ideal para uso diario.</p>
+      <p class="precio">$25.000 COP</p>
+      <div class="cta-row">
+        <a class="boton" href="https://wa.me/573105489470?text=Hola,%20me%20interesa%20el%20Vaso%20de%2025k" target="_blank" rel="noopener noreferrer">
+          Pedir por WhatsApp
+        </a>
+        <a class="boton boton-secundario" href="https://wa.me/573105489470?text=Hola,%20quiero%20mas%20detalles%20del%20Vaso%20Clasico" target="_blank" rel="noopener noreferrer">
+          Ver detalles
+        </a>
+      </div>
     </div>
     <img src="vaso1.jpg" alt="Vaso Clásico">
   </div>
 
   <div class="producto">
     <div class="producto-texto">
+      <span class="pill">Edicion premium</span>
       <h2>Vaso Premium</h2>
-      <p>Diseño especial con acabados de lujo.</p>
-      <p><strong>$35.000 COP</strong></p>
-      <a class="boton" href="https://wa.me/573105489470?text=Hola,%20me%20interesa%20el%20Vaso%20de%2035k" target="_blank">
-        Pedir por WhatsApp
-      </a>
+      <p class="descripcion">Diseño especial con acabados de lujo y presencia elegante para regalo o negocio.</p>
+      <p class="precio">$35.000 COP</p>
+      <div class="cta-row">
+        <a class="boton" href="https://wa.me/573105489470?text=Hola,%20me%20interesa%20el%20Vaso%20de%2035k" target="_blank" rel="noopener noreferrer">
+          Pedir por WhatsApp
+        </a>
+        <a class="boton boton-secundario" href="https://wa.me/573105489470?text=Hola,%20quiero%20mas%20detalles%20del%20Vaso%20Premium" target="_blank" rel="noopener noreferrer">
+          Ver detalles
+        </a>
+      </div>
     </div>
     <img src="vaso2.jpg" alt="Vaso Premium">
   </div>
@@ -121,10 +314,10 @@
 </div>
 
 <footer>
-  <p>📱 WhatsApp: <a href="https://wa.me/573105489470" target="_blank" style="text-decoration:none; color:#25d366;">3105489470</a></p>
-  <p>📧 Correo: mugnificopersonalized@gmail.com</p>
-  <a class="boton" href="https://wa.me/573105489470?text=Hola,%20quiero%20hacer%20un%20pedido" target="_blank">
-    ✅ Pedir ahora
+  <p>WhatsApp: <a href="https://wa.me/573105489470" target="_blank" rel="noopener noreferrer">3105489470</a></p>
+  <p>Correo: mugnificopersonalized@gmail.com</p>
+  <a class="boton" href="https://wa.me/573105489470?text=Hola,%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener noreferrer">
+    Pedir ahora
   </a>
 </footer>
 
